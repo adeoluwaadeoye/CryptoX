@@ -1,15 +1,6 @@
-import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import NextAuth from "next-auth";
+import { authOptions } from "@/lib/authOptions";
 
-export async function GET() {
-  const session = await getServerSession(authOptions);
+const handler = NextAuth(authOptions);
 
-  if (!session) {
-    return NextResponse.json({ user: null }, { status: 401 });
-  }
-
-  return NextResponse.json({
-    user: session.user,
-  });
-}
+export { handler as GET, handler as POST };
