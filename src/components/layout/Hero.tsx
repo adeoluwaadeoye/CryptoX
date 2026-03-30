@@ -10,7 +10,7 @@ import { Apple, Smartphone, ArrowRight } from "lucide-react";
 export function LandingPage() {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-hidden">
-      
+
       {/* HERO */}
       <section className="relative px-6 py-20 text-center max-w-5xl mx-auto">
         <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-72 h-72 bg-emerald-500/20 blur-3xl rounded-full" />
@@ -44,7 +44,7 @@ export function LandingPage() {
           <motion.div key={i} whileHover={{ y: -8, scale: 1.02 }}>
             <Card className="bg-card border-border backdrop-blur-xl hover:border-emerald-400/40 transition-all rounded-2xl">
               <CardContent className="p-7">
-                
+
                 <h3 className="text-lg font-semibold text-foreground">
                   {item}
                 </h3>
@@ -87,7 +87,7 @@ export function LandingPage() {
           </div>
 
           <motion.div
-            initial={{ opacity: 0, x:40 }}
+            initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             className="relative"
           >
@@ -96,7 +96,7 @@ export function LandingPage() {
                 src="/assets/mobile-app.png"
                 alt="mobile app"
                 fill
-                sizes=""
+                sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 800px"
                 loading="lazy"
                 className="object-contain"
               />
