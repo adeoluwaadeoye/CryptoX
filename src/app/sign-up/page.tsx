@@ -73,7 +73,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-muted/40 px-4">
+    <div className="flex items-center justify-center bg-muted/40 px-4">
 
       <div className="w-full max-w-md space-y-6">
 
@@ -164,7 +164,7 @@ const SignUp = () => {
                 type="submit"
                 className="w-full bg-muted text-muted-foreground cursor-pointer"
                 disabled={loading}
-                
+
               >
                 {loading ? "Creating account..." : "Create account"}
               </Button>
@@ -179,7 +179,7 @@ const SignUp = () => {
                 type="button"
                 variant="outline"
                 disabled={loading}
-                onClick={() => {}}
+                onClick={() => { }}
                 className="flex items-center gap-2 cursor-pointer"
               >
                 <FcGoogle className="size-5" />
@@ -190,7 +190,7 @@ const SignUp = () => {
                 type="button"
                 variant="outline"
                 disabled={loading}
-                onClick={() => {}}
+                onClick={() => { }}
                 className="flex items-center gap-2 cursor-pointer"
               >
                 <FaGithub className="size-5" />

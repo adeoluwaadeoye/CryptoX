@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     siteName: "MyCryptoX",
     images: [
       {
-        url: "https://mycryptox.vercel.app",
+        url: "https://mycryptox.netlify.app/bg.jpg",
         width: 1200,
         height: 630,
         alt: "MyCryptoX Cryptocurrency Platform",
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     title: "MyCryptoX | Secure Cryptocurrency Platform",
     description:
       "Trade, manage, and track your digital assets securely with MyCryptoX.",
-    images: ["https://mycryptox.vercel.app/bg.jpg"],
+    images: ["https://mycryptox.netlify.app/bg.jpg"],
     creator: "@mycryptox", // update if needed
   },
 
@@ -70,6 +70,7 @@ export const metadata: Metadata = {
 
   icons: {
     icon: "/icon.png",
+    shortcut: "/icon.png",
     apple: "/apple-touch-icon.png",
   },
 
