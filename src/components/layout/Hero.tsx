@@ -64,7 +64,7 @@ export function LandingPage() {
       <section className="px-6 py-20 bg-muted border-y border-border">
         <div className="grid lg:grid-cols-2 gap-12 items-center max-w-4xl mx-auto">
 
-          <div className="text-center lg:text-left space-y-6">
+          <div className="text-center lg:text-center space-y-7">
             <h2 className="text-2xl md:text-3xl font-bold">
               Download Our Mobile App
             </h2>
@@ -73,7 +73,7 @@ export function LandingPage() {
               Trade on the go with powerful tools right in your pocket.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto lg:mx-0">
+            <div className="flex flex-col sm:flex-row gap-0 max-w-md mx-auto lg:mx-0 justify-evenly">
 
               <Button variant="outline" className="flex gap-2">
                 <Apple size={18} /> iOS
@@ -87,11 +87,11 @@ export function LandingPage() {
           </div>
 
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
+            initial={{ opacity: 0, x:40 }}
             whileInView={{ opacity: 1, x: 0 }}
             className="relative"
           >
-            <div className="relative w-full h-105">
+            <div className="relative w-full h-145">
               <Image
                 src="/assets/mobile-app.png"
                 alt="mobile app"
