@@ -22,7 +22,6 @@ import { useSignup } from "@/hooks/useSignup";
 
 const SignUp = () => {
   const router = useRouter();
-
   const { signup, loading, error } = useSignup();
 
   const [form, setForm] = useState({
@@ -36,7 +35,7 @@ const SignUp = () => {
   const [success, setSuccess] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLocalError(""); // clear stale errors instantly
+    setLocalError("");
 
     setForm((prev) => ({
       ...prev,
@@ -52,7 +51,6 @@ const SignUp = () => {
 
     if (loading) return;
 
-    // 🔥 client-side validation (fast fail UX)
     if (form.password !== form.confirmPassword) {
       setLocalError("Passwords do not match");
       return;
@@ -66,7 +64,7 @@ const SignUp = () => {
     const res = await signup(form);
 
     if (res) {
-      setSuccess("Account created successfully. Redirecting...");
+      setSuccess("Account created. Redirecting...");
 
       setTimeout(() => {
         router.push("/sign-in");
@@ -75,131 +73,146 @@ const SignUp = () => {
   };
 
   return (
+    <div className="min-h-screen flex items-center justify-center bg-muted/40 px-4">
 
-    <div className="h-full flex items-center justify-center bg-[#1b0918]">
-      <Card className="w-[80%] sm:w-105 p-4 sm:p-6">
+      <div className="w-full max-w-md space-y-6">
 
-        <CardHeader>
-          <CardTitle className="text-center text-2xl font-semibold">
-            Create Account
-          </CardTitle>
-          <CardDescription className="text-center text-sm text-muted-foreground">
-            Sign up using email or social accounts
-          </CardDescription>
-        </CardHeader>
+        {/* BRAND */}
+        <div className="text-center space-y-1">
+          <h1 className="text-2xl font-bold tracking-tight">CryptoX</h1>
+          <p className="text-sm text-muted-foreground">
+            Create your trading account
+          </p>
+        </div>
 
-        <CardContent className="space-y-4">
+        {/* CARD */}
+        <Card className="border-border shadow-lg">
+          <CardHeader className="space-y-1">
+            <CardTitle className="text-xl text-center">
+              Sign up
+            </CardTitle>
+            <CardDescription className="text-center">
+              Start your trading journey in seconds
+            </CardDescription>
+          </CardHeader>
 
-          <form onSubmit={handleSubmit} className="space-y-3">
+          <CardContent className="space-y-4">
 
-            <Input
-              name="name"
-              type="text"
-              disabled={loading}
-              placeholder="Full name"
-              value={form.name}
-              onChange={handleChange}
-              required
-            />
-
-            <Input
-              name="email"
-              type="email"
-              disabled={loading}
-              placeholder="Email"
-              value={form.email}
-              onChange={handleChange}
-              required
-            />
-
-            <Input
-              name="password"
-              type="password"
-              disabled={loading}
-              placeholder="Password"
-              value={form.password}
-              onChange={handleChange}
-              required
-            />
-
-            <Input
-              name="confirmPassword"
-              type="password"
-              disabled={loading}
-              placeholder="Confirm password"
-              value={form.confirmPassword}
-              onChange={handleChange}
-              required
-            />
-
-            {/* 🔥 LOCAL VALIDATION ERROR */}
+            {/* ERRORS / SUCCESS */}
             {localError && (
               <p className="text-sm text-red-500 text-center">
                 {localError}
               </p>
             )}
 
-            {/* 🔥 SERVER ERROR */}
             {error && (
               <p className="text-sm text-red-500 text-center">
                 {error}
               </p>
             )}
 
-            {/* 🔥 SUCCESS STATE */}
             {success && (
               <p className="text-sm text-green-500 text-center">
                 {success}
               </p>
             )}
 
-            <Button
-              type="submit"
-              className="w-full"
-              size="lg"
-              disabled={loading}
-            >
-              {loading ? "Creating account..." : "Sign up"}
-            </Button>
+            {/* FORM */}
+            <form onSubmit={handleSubmit} className="space-y-3">
 
-          </form>
+              <Input
+                name="name"
+                type="text"
+                placeholder="Full name"
+                value={form.name}
+                onChange={handleChange}
+                disabled={loading}
+                required
+              />
 
-          <Separator />
+              <Input
+                name="email"
+                type="email"
+                placeholder="Email address"
+                value={form.email}
+                onChange={handleChange}
+                disabled={loading}
+                required
+              />
 
-          <div className="flex justify-evenly items-center">
-            <Button
-              type="button"
-              disabled={loading}
-              variant="outline"
-              size="lg"
-              className="bg-slate-300 hover:bg-slate-400 hover:scale-105 transition"
-            >
-              <FcGoogle className="size-6" />
-            </Button>
+              <Input
+                name="password"
+                type="password"
+                placeholder="Password"
+                value={form.password}
+                onChange={handleChange}
+                disabled={loading}
+                required
+              />
 
-            <Button
-              type="button"
-              disabled={loading}
-              variant="outline"
-              size="lg"
-              className="bg-slate-300 hover:bg-slate-400 hover:scale-105 transition"
-            >
-              <FaGithub className="size-6" />
-            </Button>
-          </div>
+              <Input
+                name="confirmPassword"
+                type="password"
+                placeholder="Confirm password"
+                value={form.confirmPassword}
+                onChange={handleChange}
+                disabled={loading}
+                required
+              />
 
-          <p className="text-center text-sm mt-3 text-muted-foreground">
-            Already have an account?{" "}
-            <Link
-              className="text-sky-700 ml-3 hover:underline"
-              href="/sign-in"
-            >
-              Sign in
-            </Link>
-          </p>
+              <Button
+                type="submit"
+                className="w-full bg-muted text-muted-foreground cursor-pointer"
+                disabled={loading}
+                
+              >
+                {loading ? "Creating account..." : "Create account"}
+              </Button>
+            </form>
 
-        </CardContent>
-      </Card>
+            <Separator />
+
+            {/* SOCIAL LOGIN */}
+            <div className="grid grid-cols-2 gap-3">
+
+              <Button
+                type="button"
+                variant="outline"
+                disabled={loading}
+                onClick={() => {}}
+                className="flex items-center gap-2 cursor-pointer"
+              >
+                <FcGoogle className="size-5" />
+                Google
+              </Button>
+
+              <Button
+                type="button"
+                variant="outline"
+                disabled={loading}
+                onClick={() => {}}
+                className="flex items-center gap-2 cursor-pointer"
+              >
+                <FaGithub className="size-5" />
+                GitHub
+              </Button>
+
+            </div>
+
+            {/* SWITCH */}
+            <p className="text-center text-sm text-muted-foreground">
+              Already have an account?{" "}
+              <Link
+                className="text-emerald-500 hover:underline font-medium"
+                href="/sign-in"
+              >
+                Sign in
+              </Link>
+            </p>
+
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 };

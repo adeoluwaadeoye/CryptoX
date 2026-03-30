@@ -1,27 +1,15 @@
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
-import { verifyToken } from "@/lib/auth";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export async function GET() {
-  const cookieStore = await cookies(); // ✅ FIX: await here
+  const session = await getServerSession(authOptions);
 
-  const token = cookieStore.get("token")?.value;
-
-  if (!token) {
+  if (!session) {
     return NextResponse.json({ user: null }, { status: 401 });
   }
 
-  try {
-    const decoded = verifyToken(token);
-
-    return NextResponse.json(
-      { user: decoded },
-      { status: 200 }
-    );
-  } catch {
-    return NextResponse.json(
-      { user: null },
-      { status: 401 }
-    );
-  }
+  return NextResponse.json({
+    user: session.user,
+  });
 }

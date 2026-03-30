@@ -3,170 +3,157 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
-// shadcn UI
 import { Button } from "@/components/ui/button";
 import {
-    Card,
-    CardHeader,
-    CardDescription,
-    CardContent,
-    CardTitle,
+  Card,
+  CardHeader,
+  CardDescription,
+  CardContent,
+  CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 
-// icons
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 
 const SignInPage = () => {
-    const router = useRouter();
+  const router = useRouter();
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("");
-    const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (loading) return;
 
-        if (loading) return;
+    setLoading(true);
+    setError("");
 
-        setLoading(true);
-        setError("");
-        setSuccess("");
+    const res = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
 
-        try {
-            const res = await fetch("/api/auth/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email, password }),
-            });
+    setLoading(false);
 
-            const data = await res.json();
+    if (res?.error) {
+      setError("Invalid credentials. Try again.");
+      return;
+    }
 
-            if (!res.ok) {
-                setError(data?.message || "Invalid credentials");
-                return;
-            }
+    router.push("/dashboard");
+  };
 
-            setSuccess("Login successful. Redirecting...");
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-muted/40 px-4">
 
-            setTimeout(() => {
-                router.push("/dashboard");
-            }, 1000);
+      <div className="w-full max-w-md space-y-6">
 
-        } catch (_error) {
-            console.error("Login error:", _error);
-            setError("Network error. Please try again.");
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    return (
-        <div className="h-full flex items-center justify-center bg-[#1b0918]">
-            <Card className="w-[90%] sm:w-105 p-4 sm:p-6">
-                <CardHeader className="space-y-1">
-                    <CardTitle className="text-center text-xl">
-                        Sign in
-                    </CardTitle>
-
-                    <CardDescription className="text-sm text-center text-accent-foreground">
-                        Welcome back — sign in to continue
-                    </CardDescription>
-                </CardHeader>
-
-                <CardContent className="px-2 sm:px-4">
-
-                    {error && (
-                        <p className="text-red-500 text-sm mb-2 text-center">
-                            {error}
-                        </p>
-                    )}
-
-                    {success && (
-                        <p className="text-green-500 text-sm mb-2 text-center">
-                            {success}
-                        </p>
-                    )}
-
-                    <form onSubmit={handleSubmit} className="space-y-3">
-                        <Input
-                            type="email"
-                            placeholder="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                            disabled={loading}
-                        />
-
-                        <Input
-                            type="password"
-                            placeholder="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                            disabled={loading}
-                        />
-
-                        <Button
-                            className="w-full"
-                            size="lg"
-                            type="submit"
-                            disabled={loading}
-                        >
-                            {loading ? "loading..." : "continue"}
-                        </Button>
-                    </form>
-
-                    <Separator className="my-3" />
-
-                    <div className="flex justify-evenly items-center">
-                        <Button
-                            type="button"
-                            disabled={loading}
-                            variant="outline"
-                            size="lg"
-                            className="bg-slate-300 hover:bg-slate-400 hover:scale-105 transition"
-                        >
-                            <FcGoogle className="size-6" />
-                        </Button>
-
-                        <Button
-                            type="button"
-                            disabled={loading}
-                            variant="outline"
-                            size="lg"
-                            className="bg-slate-300 hover:bg-slate-400 hover:scale-105 transition"
-                        >
-                            <FaGithub className="size-6" />
-                        </Button>
-                    </div>
-
-
-                    <div>
-                        <div>
-                            <p className="text-center text-sm mt-3 text-muted-foreground">
-                                Don’t have an account?
-                                <Link
-                                    className="text-sky-700  hover:underline"
-                                    href="/sign-up"
-                                >
-                                    Sign up
-                                </Link>
-                            </p>
-                        </div>
-                    </div>
-                </CardContent>
-            </Card>
+        {/* BRAND HEADER */}
+        <div className="text-center space-y-1">
+          <h1 className="text-2xl font-bold tracking-tight">CryptoX</h1>
+          <p className="text-sm text-muted-foreground">
+            Secure access to your trading dashboard
+          </p>
         </div>
-    );
+
+        {/* CARD */}
+        <Card className="border-border shadow-lg">
+          <CardHeader className="space-y-1">
+            <CardTitle className="text-xl text-center">
+              Sign in
+            </CardTitle>
+            <CardDescription className="text-center">
+              Welcome back. Let’s get you moving.
+            </CardDescription>
+          </CardHeader>
+
+          <CardContent className="space-y-4">
+
+            {error && (
+              <p className="text-sm text-red-500 text-center">
+                {error}
+              </p>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-3">
+              <Input
+                type="email"
+                placeholder="Email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+
+              <Input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+
+              <Button
+                className="w-full bg-muted text-muted-foreground cursor-pointer"
+                type="submit"
+                disabled={loading}
+              >
+                {loading ? "Signing In..." : "Sign in"}
+              </Button>
+            </form>
+
+            <Separator />
+
+            {/* SOCIAL LOGIN */}
+            <div className="grid grid-cols-2 gap-3">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() =>
+                  signIn("google", { callbackUrl: "/dashboard" })
+                }
+                className="flex items-center gap-2 cursor-pointer"
+              >
+                <FcGoogle className="size-5" />
+                Google
+              </Button>
+
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() =>
+                  signIn("github", { callbackUrl: "/dashboard" })
+                }
+                className="flex items-center gap-2 cursor-pointer"
+              >
+                <FaGithub className="size-5" />
+                GitHub
+              </Button>
+            </div>
+
+            {/* SIGNUP LINK */}
+            <p className="text-center text-sm text-muted-foreground">
+              Don’t have an account?{" "}
+              <Link
+                className="text-emerald-500 hover:underline font-medium"
+                href="/sign-up"
+              >
+                Create one
+              </Link>
+            </p>
+
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
 };
 
 export default SignInPage;

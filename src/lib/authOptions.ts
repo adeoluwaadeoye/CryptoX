@@ -1,4 +1,3 @@
-import { getServerSession } from "next-auth";
 import type { NextAuthOptions } from "next-auth";
 
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -37,16 +36,16 @@ export const authOptions: NextAuthOptions = {
 
         if (!user) return null;
 
-        const valid = await bcrypt.compare(
+        const isValid = await bcrypt.compare(
           credentials!.password,
           user.password
         );
 
-        if (!valid) return null;
+        if (!isValid) return null;
 
         return {
           id: user._id.toString(),
-          name: user.name,
+          name: user.name,   // 👈 IMPORTANT (signup name)
           email: user.email,
         };
       },
@@ -59,13 +58,17 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
     async jwt({ token, user }) {
-      if (user) token.id = user.id;
+      if (user) {
+        token.id = user.id;
+        token.name = user.name; 
+      }
       return token;
     },
 
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.id as string;
+        session.user.name = token.name as string;
       }
       return session;
     },
@@ -73,6 +76,3 @@ export const authOptions: NextAuthOptions = {
 
   secret: process.env.NEXTAUTH_SECRET,
 };
-
-export const getAuthSession = () =>
-  getServerSession(authOptions);
