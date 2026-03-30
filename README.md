@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 CryptoX
 
-## Getting Started
+> A high-performance crypto trading dashboard built for speed, clarity, and intelligent decision-making.
 
-First, run the development server:
+CryptoX is a modern trading interface designed to simulate a real-world crypto portfolio system. It focuses on clean UX, fast interaction patterns, and scalable dashboard architecture for financial applications.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ⚡ Why CryptoX Exists
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Most crypto dashboards are either:
+- Overloaded with noise  
+- Slow and visually inconsistent  
+- Hard to scale or extend  
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+CryptoX flips that.
 
-## Learn More
+It prioritizes:
+- Decision speed over decoration  
+- Structured data over visual clutter  
+- Scalable UI architecture over one-off screens  
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🧠 Core Features
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 📊 Smart Dashboard
+- Portfolio overview with performance insights
+- Real-time P&L tracking (UI-ready structure)
+- Market snapshot widgets
+- Clean KPI-driven layout
 
-## Deploy on Vercel
+### 💰 Wallet System
+- Balance overview
+- Transaction history structure
+- Deposit & withdrawal UI flows (extendable)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 📈 Market Intelligence
+- Asset tracking interface
+- Watchlist-ready architecture
+- Trend visualization ready for chart integration
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 🔔 Alerts Engine (UI Layer)
+- Price alert system structure
+- Notification-ready components
+- Event-based architecture support
+
+### 🔐 Authentication System
+- Email/password login
+- OAuth (Google + GitHub)
+- Secure session handling via NextAuth
+
+---
+
+## 🧱 Tech Stack
+
+- **Next.js (App Router)** – Full-stack React framework  
+- **TypeScript** – Type-safe architecture  
+- **Tailwind CSS** – Utility-first styling system  
+- **ShadCN UI** – Component foundation  
+- **NextAuth.js** – Authentication layer  
+- **Lucide Icons** – Clean icon system  
+
+---
+
