@@ -8,10 +8,10 @@ import { ArrowRight, ShieldCheck, Zap, BarChart3 } from "lucide-react";
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-hidden">
+    <div className="min-h-screen  bg-background text-foreground overflow-hidden">
 
       {/* HERO */}
-      <section className="relative px-6 py-14 max-w-7xl mx-auto text-center">
+      <section className="relative font-body px-6 py-14 max-w-7xl mx-auto text-center">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-125 h-125 bg-emerald-500/20 blur-[120px] rounded-full" />
 
         <motion.h1
@@ -32,7 +32,7 @@ export default function LandingPage() {
 
         <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center cursor-pointer">
           <Link href="/dashboard">
-            <Button className="px-8 py-6 text-base rounded-xl bg-linear-to-r from-emerald-500 to-cyan-500">
+            <Button className="px-8 py-6 text-base rounded-xl bg-linear-to-r from-emerald-500 to-cyan-500 cursor-pointer">
               Start Trading <ArrowRight className="ml-2" size={18} />
             </Button>
           </Link>
@@ -71,45 +71,50 @@ export default function LandingPage() {
       </section>
 
       {/* APP SECTION */}
-      <section className="px-2 py-4 border-y aligncenter justify-center border-border bg-mute">
-        <div className="grid lg:grid-cols-2 gap-2 items-center max-w-6xl mx-auto">
+      <section className="px-4 py-12 border-y border-border bg-muted overflow-hidden">
+<div className="grid lg:grid-cols-[1fr_auto] gap-8 items-center max-w-3xl mx-auto">
 
+          {/* TEXT */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="space-y-6 text-center lg:text-left"
+            transition={{ duration: 0.5 }}
+            className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-5 space-x-2"
           >
-            <h2 className="text-3xl md:text-4xl font-bold">
+            <h2 className="text-2xl md:text-3xl font-bold">
               Trade Anywhere, Anytime
             </h2>
 
-            <p className="text-muted-foreground max-w-md mx-auto lg:mx-0">
-              Stay ahead of the market with our powerful mobile trading app. Execute trades, monitor charts, and manage your portfolio on the go.
+            <p className="text-muted-foreground max-w-sm">
+              Stay ahead of the market with our powerful mobile trading app.
+              Execute trades, monitor charts, and manage your portfolio on the go.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button variant="outline" className="px-6 py-5 rounded-xl">
+            <div className="flex flex-row gap-3 justify-center lg:justify-start">
+              <Button variant="outline" className="px-5 py-4 rounded-xl">
                 Download iOS
               </Button>
 
-              <Button variant="outline" className="px-6 py-5 rounded-xl">
+              <Button variant="outline" className="px-5 py-4 rounded-xl">
                 Download Android
               </Button>
             </div>
           </motion.div>
 
+          {/* IMAGE */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="relative w-full h-100 sm:h-125"
+            transition={{ duration: 0.5 }}
+            className="flex justify-center lg:justify-end"
           >
             <Image
               src="/assets/mobile-app.png"
               alt="mobile app"
-              fill
-              className="object-contain"
+              width={360}
+              height={700}
+              priority
+              className="w-55 sm:w-65 md:w-75 lg:w-85 h-auto object-contain drop-shadow-2xl"
             />
           </motion.div>
 

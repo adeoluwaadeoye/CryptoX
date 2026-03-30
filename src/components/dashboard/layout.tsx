@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 import { redirect } from "next/navigation";
-import DashboardShell from "@/app/dashboard/shell";
+import DashboardShell from "./DashboardShell";
 
 export default async function DashboardLayout({
   children,
@@ -13,7 +13,7 @@ export default async function DashboardLayout({
   if (!session) redirect("/sign-in");
 
   return (
-    <DashboardShell user={session.user}>
+    <DashboardShell>
       {children}
     </DashboardShell>
   );

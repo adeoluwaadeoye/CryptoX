@@ -19,7 +19,7 @@ export default function Header() {
       .toUpperCase() || "";
 
   return (
-    <header className="fixed top-0 z-50 w-full border-b bg-background backdrop-blur">
+    <header className="fixed font-body top-0 z-50 w-full border-b bg-background backdrop-blur">
       <div className="flex items-center justify-between px-6 py-4">
 
         {/* BRAND */}
