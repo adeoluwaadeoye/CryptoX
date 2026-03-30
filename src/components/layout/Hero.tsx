@@ -60,7 +60,6 @@ export function LandingPage() {
         ))}
       </section>
 
-      {/* DOWNLOAD */}
       <section className="px-6 py-20 bg-muted border-y border-border">
         <div className="grid lg:grid-cols-2 gap-12 items-center max-w-4xl mx-auto">
 
