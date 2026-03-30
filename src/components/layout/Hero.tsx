@@ -12,7 +12,7 @@ export default function LandingPage() {
 
       {/* HERO */}
       <section className="relative font-body px-6 py-14 max-w-7xl mx-auto text-center">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-125 h-125 bg-emerald-500/20 blur-[120px] rounded-full" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-125 h-125 bg-emerald-500/20 blur-[120px] rounded-full pointer-events-none" />
 
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
@@ -29,14 +29,12 @@ export default function LandingPage() {
         <p className="mt-6 text-muted-foreground max-w-2xl mx-auto text-base sm:text-lg">
           Professional-grade trading tools, lightning-fast execution, and a seamless experience built for serious traders.
         </p>
-
-        <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center cursor-pointer">
-          <Link href="/dashboard">
-            <Button className="px-8 py-6 text-base rounded-xl bg-linear-to-r from-emerald-500 to-cyan-500 cursor-pointer">
-              Start Trading <ArrowRight className="ml-2" size={18} />
-            </Button>
-          </Link>
-        </div>
+        
+        <Link href="/dashboard">
+          <Button className="px-8 py-6 text-base rounded-xl mt-4 bg-linear-to-r from-emerald-500 to-cyan-500 cursor-pointer">
+            Start Trading <ArrowRight className="ml-2" size={18} />
+          </Button>
+        </Link>
       </section>
 
       {/* TRUST BAR */}
@@ -72,7 +70,7 @@ export default function LandingPage() {
 
       {/* APP SECTION */}
       <section className="px-4 py-12 border-y border-border bg-muted overflow-hidden">
-<div className="grid lg:grid-cols-[1fr_auto] gap-8 items-center max-w-3xl mx-auto">
+        <div className="grid lg:grid-cols-[1fr_auto] gap-8 items-center max-w-3xl mx-auto">
 
           {/* TEXT */}
           <motion.div
