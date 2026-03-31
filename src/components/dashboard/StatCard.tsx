@@ -2,26 +2,41 @@
 
 import { LucideIcon } from "lucide-react";
 
+type Props = {
+  label: string;
+  value: string;
+  change: string;
+  icon: LucideIcon;
+  iconClass?: string;
+};
+
 export default function StatCard({
   label,
   value,
   change,
   icon: Icon,
-}: {
-  label: string;
-  value: string;
-  change: string;
-  icon?: LucideIcon;
-}) {
+  iconClass = "text-muted-foreground",
+}: Props) {
+  const isNegative = change.startsWith("-");
+
   return (
-    <div className="p-5 rounded-2xl border border-border bg-background/60 hover:shadow-lg transition">
+    <div className="p-4 rounded-2xl border bg-background/60 space-y-2">
+      
       <div className="flex items-center justify-between">
-        <p className="text-xs text-muted-foreground">{label}</p>
-        {Icon && <Icon size={16} className="text-muted-foreground" />}
+        <Icon className={`w-5 h-5 ${iconClass}`} />
+
+        <span
+          className={`text-xs ${
+            isNegative ? "text-red-500" : "text-emerald-500"
+          }`}
+        >
+          {change}
+        </span>
       </div>
 
-      <h3 className="text-xl font-semibold mt-2">{value}</h3>
-      <p className="text-xs mt-1 text-emerald-500">{change}</p>
+      <p className="text-sm text-muted-foreground">{label}</p>
+
+      <h3 className="text-xl font-semibold">{value}</h3>
     </div>
   );
 }

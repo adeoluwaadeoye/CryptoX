@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
+
+import MarketChart from "@/components/dashboard/MarketChart";
 
 import {
   Wallet,
@@ -24,7 +25,7 @@ export default function DashboardContent() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        className="grid lg:grid-cols-2 gap-6 items-center"
+        className="grid lg:grid-cols-[1fr_0.9fr] gap-2 items-center max-w-5xl mx-auto"
       >
         <div className="space-y-4">
           <h2 className="text-2xl md:text-4xl font-bold tracking-tight">
@@ -34,10 +35,6 @@ export default function DashboardContent() {
           <p className="text-muted-foreground max-w-md">
             Track markets, manage assets, and execute trades with precision-grade analytics.
           </p>
-
-          <Button className="rounded-xl px-6 py-5 bg-emerald-600 hover:bg-emerald-700">
-            Start Trading
-          </Button>
         </div>
 
         <div className="relative w-full h-64 md:h-96">
@@ -54,24 +51,28 @@ export default function DashboardContent() {
 
       {/* STATS */}
       <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
-        <StatCard label="Portfolio" value="$42,310" change="+14.2%" icon={Wallet} />
-        <StatCard label="Profit" value="$2,180" change="+5.8%" icon={TrendingUp} />
-        <StatCard label="Trades" value="24" change="+3 new" icon={Activity} />
-        <StatCard label="Win Rate" value="81%" change="+6%" icon={BarChart3} />
-        <StatCard label="Loss Today" value="-$1,240" change="-3.8%" icon={TrendingDown} />
+        <StatCard label="Portfolio" value="$42,310" change="+14.2%" icon={Wallet} iconClass="text-blue-500" />
+
+        <StatCard label="Profit" value="$2,180" change="+5.8%" icon={TrendingUp} iconClass="text-emerald-500" />
+
+        <StatCard label="Trades" value="24" change="+3 new" icon={Activity} iconClass="text-purple-500" />
+
+        <StatCard label="Win Rate" value="81%" change="+6%" icon={BarChart3} iconClass="text-indigo-500" />
+
+        <StatCard label="Loss Today" value="-$1,240" change="-3.8%" icon={TrendingDown} iconClass="text-red-500" />
       </div>
 
       {/* MARKET */}
       <div className="grid lg:grid-cols-3 gap-6">
 
+        {/* CHART SECTION */}
         <div className="lg:col-span-2 p-6 rounded-2xl border border-border bg-background/60">
           <h3 className="font-semibold mb-4">Market Overview</h3>
 
-          <div className="h-64 rounded-xl bg-muted/30 flex items-center justify-center text-muted-foreground">
-            Chart Module (Recharts / TradingView)
-          </div>
+          <MarketChart />
         </div>
 
+        {/* TOP ASSETS */}
         <div className="p-6 rounded-2xl border border-border bg-background/60 space-y-2">
           <h3 className="font-semibold mb-2">Top Assets</h3>
 
@@ -96,6 +97,7 @@ export default function DashboardContent() {
             icon={Coins}
           />
         </div>
+
       </div>
 
       {/* INSIGHTS */}
