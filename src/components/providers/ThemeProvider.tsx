@@ -13,15 +13,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 function getInitialTheme(): Theme {
   if (typeof window === "undefined") return "dark";
-
-  const stored = localStorage.getItem("theme") as Theme | null;
-  return stored ?? "dark";
-}
-
-function applyTheme(theme: Theme) {
-  const root = document.documentElement;
-  root.classList.remove("light", "dark");
-  root.classList.add(theme);
+  return (localStorage.getItem("theme") as Theme) || "dark";
 }
 
 export default function ThemeProvider({
@@ -29,19 +21,10 @@ export default function ThemeProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [theme, setTheme] = useState<Theme>(() => {
-    const initial = getInitialTheme();
-
-    //CRITICAL: apply BEFORE first paint
-    if (typeof window !== "undefined") {
-      applyTheme(initial);
-    }
-
-    return initial;
-  });
+  const [theme, setTheme] = useState<Theme>(getInitialTheme);
 
   useEffect(() => {
-    applyTheme(theme);
+    document.documentElement.classList.toggle("dark", theme === "dark");
     localStorage.setItem("theme", theme);
   }, [theme]);
 
