@@ -1,35 +1,39 @@
 import mongoose from "mongoose";
 
-const MONGODB_URI = process.env.MONGODB_URI!;
-
-if (!MONGODB_URI) {
-  throw new Error("Please define MONGODB_URI in .env");
-}
-
 interface MongooseCache {
   conn: typeof mongoose | null;
   promise: Promise<typeof mongoose> | null;
 }
 
-// FIX: use const (no ESLint warning)
-const globalWithMongoose = global as typeof globalThis & {
-  mongoose: MongooseCache;
-};
+declare global {
+  var mongooseCache: MongooseCache | undefined;
+}
 
-const cached = globalWithMongoose.mongoose || {
+const globalCache = global.mongooseCache || {
   conn: null,
   promise: null,
 };
 
-export default async function connectToDatabase() {
-  if (cached.conn) return cached.conn;
+export default async function connectToDatabase(): Promise<typeof mongoose> {
+  const MONGODB_URI = process.env.MONGODB_URI;
 
-  if (!cached.promise) {
-    cached.promise = mongoose.connect(MONGODB_URI);
+  //No "any", no null — fail properly
+  if (!MONGODB_URI) {
+    throw new Error("MONGODB_URI is not defined");
   }
 
-  cached.conn = await cached.promise;
-  globalWithMongoose.mongoose = cached;
+  if (globalCache.conn) {
+    return globalCache.conn;
+  }
 
-  return cached.conn;
+  if (!globalCache.promise) {
+    globalCache.promise = mongoose.connect(MONGODB_URI, {
+      bufferCommands: false,
+    });
+  }
+
+  globalCache.conn = await globalCache.promise;
+  global.mongooseCache = globalCache;
+
+  return globalCache.conn;
 }

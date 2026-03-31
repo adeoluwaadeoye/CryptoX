@@ -32,7 +32,7 @@ export default function ThemeProvider({
   const [theme, setTheme] = useState<Theme>(() => {
     const initial = getInitialTheme();
 
-    // 🔥 CRITICAL: apply BEFORE first paint
+    //CRITICAL: apply BEFORE first paint
     if (typeof window !== "undefined") {
       applyTheme(initial);
     }
