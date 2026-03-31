@@ -22,6 +22,7 @@ export default function DashboardContent() {
     <div className="p-4 md:p-8 space-y-8">
 
       {/* HERO */}
+      
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
